@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Books</h1>
+    {% for forms in form %}
+      <p>{{forms.nama_gejala}}</p>
+    {% endfor %}
+{% endblock %}

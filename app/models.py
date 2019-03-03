@@ -26,21 +26,13 @@ class User(UserMixin, db.Model):
     def get_id(self):
            return (self.id_user)
 
-    # def check_password(self, password):
-    #     password_hash = hashlib.md5(password)
+class Gejala(db.Model):
+    id_gejala = db.Column(db.Integer, primary_key=True)
+    nama_gejala = db.Column(db.String(255))
+    # gejalapenyakit = db.relationship('GejalaPenyakit', backref='author', lazy='dynamic')
 
-    #     if password_hash == self.password:
-    #         return True
-    #     else:
-    #         return False
-
-# class Gejala(db.Model):
-#     id_gejala = db.Column(db.Integer, primary_key=True)
-#     nama_gejala = db.Column(db.String(255))
-#     gejalapenyakit = db.relationship('GejalaPenyakit', backref='author', lazy='dynamic')
-
-#     def __repr__(self):
-#         return '<Gejala {}>'.format(self.body)
+    def __repr__(self):
+        return '<Gejala {}>'.format(self.id_gejala)
 
 
 # class Penyakit(db.Model):

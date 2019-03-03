@@ -1,43 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Go &mdash; Sehat</title>
+    {% block head %}
+        <title>{% block title %}Go-Sehat{% endblock %}</title>
+        <!-- General CSS Files -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='modules/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='modules/fontawesome/css/all.min.css') }}">
 
-  <!-- General CSS Files -->
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-  <!-- CSS Libraries -->
-  <!-- <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
-  <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
-  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"> -->
+        <!-- CSS Libraries -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='modules/jqvmap/dist/jqvmap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='modules/summernote/summernote-bs4.css') }} ">
+        <link rel="stylesheet" href="{{ url_for('static', filename='modules/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
 
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+        <!-- Template CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    {% endblock %}
 </head>
-
 <body>
-    <!-- Microblog:
-        <a href="{{ url_for('index') }}">Home</a>
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-    <hr>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %} -->
-    {% block navbar %}
-    {% block content %}{% endblock %}
+    <div id="content">{% block content %}{% endblock %}</div>
+    <footer class="main-footer">
+        <div class="footer-left">
+            {% block footer %}
+                Copyright &copy; 2019 <div class="bullet"></div> Design By Arvianti Yulia Ma'ulfa
+            {% endblock %}
+        </div>
+    </footer>
 </body>
+
+{% block js %}
+
+    <!-- General JS Scripts -->
+    <script src="{{ url_for('static', filename='modules/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/popper.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/tooltip.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/stisla.js') }}"></script>
+
+    <!-- JS Libraies -->
+    <script src="{{ url_for('static', filename='modules/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/summernote/summernote-bs4.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="{{ url_for('static', filename='js/page/index.js') }}"></script>
+
+    <!-- Template JS File -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+{% endblock %}
+</html>

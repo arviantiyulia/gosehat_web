@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, Required, Email, EqualTo
-from app.models import User
+from app.models import User, Gejala
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[Required()])
@@ -27,3 +27,6 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class GejalaForm(FlaskForm):
+    gejala = Gejala.query.all()
