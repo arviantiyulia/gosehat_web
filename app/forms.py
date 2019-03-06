@@ -29,4 +29,5 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different email address.')
 
 class GejalaForm(FlaskForm):
-    gejala = Gejala.query.all()
+    nama_gejala = StringField('Nama Gejala', validators=[Required()])
+    submit = SubmitField('Simpan')

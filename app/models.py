@@ -35,18 +35,18 @@ class Gejala(db.Model):
         return '<Gejala {}>'.format(self.id_gejala)
 
 
-# class Penyakit(db.Model):
-#     id_penyakit = db.Column(db.Integer, primary_key=True)
-#     nama_penyakit = db.Column(db.String(255))
-#     definisi_penyakit = db.Column(db.String(255))
-#     penyebab_penyakit = db.Column(db.String(255))
-#     pengobatan_penyakit = db.Column(db.String(255))
-#     pencegahan_penyakit = db.Column(db.String(255))
-#     komplikasi_penyakit = db.Column(db.String(255))
-#     gejalapenyakit = db.relationship('GejalaPenyakit', backref='author', lazy='dynamic')
+class Penyakit(db.Model):
+    id_penyakit = db.Column(db.Integer, primary_key=True)
+    nama_penyakit = db.Column(db.String(255))
+    definisi_penyakit = db.Column(db.String(255))
+    penyebab_penyakit = db.Column(db.String(255))
+    pengobatan_penyakit = db.Column(db.String(255))
+    pencegahan_penyakit = db.Column(db.String(255))
+    komplikasi_penyakit = db.Column(db.String(255))
+    # gejalapenyakit = db.relationship('GejalaPenyakit', backref='author', lazy='dynamic')
 
-#     def __repr__(self):
-#         return '<Penyakit {}>'.format(self.body)
+    def __repr__(self):
+        return '<Penyakit {}>'.format(self.id_penyakit)
 
 
 # class GejalaPenyakit(db.Model):

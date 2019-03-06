@@ -1,0 +1,48 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+    <section class="section">
+        <div class="section-header">
+            <h1>Penyakit</h1>
+        </div>
+        <a href="{{ url_for('create_gejala') }}" class="btn btn-primary" style="margin-bottom: 20px; margin-left: 10px;">Tambah Penyakit</a>
+
+        <div class="row" style="margin-left: 10px;">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="table-responsive table-invoice">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>ID Penyakit</th>
+                                <th>Nama Penyakit</th>
+                                <th>Definisi Penyakit</th>
+                                <th></th>
+                                <th>Action</th>
+                                <th></th>
+                            </tr>
+
+                            {% for models in models %}
+                            <tr>
+                                <td>{{models.id_penyakit}}</td>
+                                <td class="font-weight-600">{{models.nama_penyakit}}</td>
+                                <td class="font-weight-600">{{models.definisi_penyakit}}</td>
+{#                                <td>#}
+{#                                  <a href="{{ url_for('detail_gejala', id_gejala=models.id_gejala) }}" class="btn btn-dark">Detail</a>#}
+{#                                </td>#}
+                                <td>
+                                  <a href="" class="btn btn-success">Update</a>
+                                </td>
+{#                                <td>#}
+{#                                  <a href="{{ url_for('delete_gejala', id_gejala=models.id_gejala) }}" class="btn btn-danger">Delete</a>#}
+{#                                </td>#}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+

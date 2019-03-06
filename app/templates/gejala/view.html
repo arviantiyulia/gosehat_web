@@ -1,8 +1,42 @@
-{% extends 'base.html' %}
+{% extends 'dashboard.html' %}
 
 {% block content %}
-    <h1>Books</h1>
-    {% for forms in form %}
-      <p>{{forms.nama_gejala}}</p>
-    {% endfor %}
+    <section class="section">
+        <div class="section-header">
+            <h1>Gejala</h1>
+        </div>
+        <a href="{{ url_for('create_gejala') }}" class="btn btn-primary" style="margin-bottom: 20px; margin-left: 20px;">Tambah Gejala</a>
+
+        <div class="row" style="margin-left: 20px;">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="table-responsive table-invoice">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>ID Gejala</th>
+                                <th>Nama Gejala</th>
+                                <th>Action</th>
+                                <th></th>
+                            </tr>
+
+                            {% for models in models %}
+                            <tr>
+                                <td>{{models.id_gejala}}</td>
+                                <td class="font-weight-600">{{models.nama_gejala}}</td>
+                                <td>
+                                  <a href="{{ url_for('update_gejala', id_gejala=models.id_gejala) }}" class="btn btn-success">Update</a>
+                                </td>
+                                <td>
+                                  <a href="{{ url_for('delete_gejala', id_gejala=models.id_gejala) }}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
+
