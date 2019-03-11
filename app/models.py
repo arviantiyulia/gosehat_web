@@ -43,17 +43,17 @@ class Penyakit(db.Model):
     pengobatan_penyakit = db.Column(db.String(255))
     pencegahan_penyakit = db.Column(db.String(255))
     komplikasi_penyakit = db.Column(db.String(255))
-    # gejalapenyakit = db.relationship('GejalaPenyakit', backref='author', lazy='dynamic')
+    rule = db.relationship('Rule', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<Penyakit {}>'.format(self.id_penyakit)
 
 
-# class GejalaPenyakit(db.Model):
-#     id_gejala_penyakit = db.Column(db.Integer, primary_key=True)
-#     bobot = db.Column(db.Float)
-#     id_gejala = db.Column(db.Integer, db.ForeignKey('gejala.id_gejala'))
-#     id_penyakit = db.Column(db.Integer, db.ForeignKey('penyakit.id_penyakit'))
+class Rule(db.Model):
+    id_gejala_penyakit = db.Column(db.Integer, primary_key=True)
+    bobot = db.Column(db.Float)
+    # id_gejala = db.Column(db.Integer, db.ForeignKey('gejala.id_gejala'))
+    id_penyakit = db.Column(db.Integer, db.ForeignKey('penyakit.id_penyakit'))
 
-#     def __repr__(self):
-#         return '<GejalaPenyakit {}>'.format(self.body)
+    def __repr__(self):
+        return '<GejalaPenyakit {}>'.format(self.id_gejala_penyakit)

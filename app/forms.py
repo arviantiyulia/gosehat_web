@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, Required, Email, EqualTo
-from app.models import User, Gejala
+from app.models import User, Gejala, Penyakit
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[Required()])
@@ -31,3 +31,17 @@ class RegistrationForm(FlaskForm):
 class GejalaForm(FlaskForm):
     nama_gejala = StringField('Nama Gejala', validators=[Required()])
     submit = SubmitField('Simpan')
+
+
+class PenyakitForm(FlaskForm):
+    nama_penyakit = StringField('Nama Penyakit', validators=[Required()])
+    definisi_penyakit = StringField('Definisi Penyakit', validators=[Required()])
+    penyebab_penyakit = StringField('Penyebab Penyakit') 
+    pengobatan_penyakit = StringField('Pengobatan Penyakit')
+    pencegahan_penyakit = StringField('Pencegahan Penyakit')
+    komplikasi_penyakit = StringField('Komplikasi Penyakit')
+    submit = SubmitField('Simpan')
+
+class RuleForm(FlaskForm):
+    bobot = FloatField('Bobot', validators=[Required()])
+    id_penyakit = QuerySelectField(query_factory=lambda: Penyakit.query.all())

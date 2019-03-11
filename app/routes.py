@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 from app import app, db
 from app.forms import LoginForm
-from app.forms import RegistrationForm, GejalaForm
+from app.forms import RegistrationForm, GejalaForm, PenyakitForm
 from app.models import User, Gejala, Penyakit
 
 
@@ -97,3 +97,44 @@ def view_penyakit():
     models = Penyakit.query.all()
     print(models)
     return render_template('penyakit/view.html', title='View Penyakit', models=models)
+
+@app.route('/penyakit/create', methods=['GET', 'POST'])
+def create_penyakit():
+    form = PenyakitForm()
+    if form.validate_on_submit():
+        penyakit = Penyakit(nama_penyakit=form.nama_penyakit.data, definisi_penyakit=form.definisi_penyakit.data, penyebab_penyakit=form.penyebab_penyakit.data, pengobatan_penyakit=form.pengobatan_penyakit.data, pencegahan_penyakit=form.pencegahan_penyakit.data, komplikasi_penyakit=form.komplikasi_penyakit.data)
+        db.session.add(penyakit)
+        db.session.commit()
+        flash('Data berhasil dimasukkan')
+        return redirect(url_for('view_penyakit'))
+    return render_template('penyakit/create.html', title='View Penyakit', form=form)
+
+
+@app.route('/penyakit/update/<int:id_penyakit>', methods=['GET', 'POST'])
+def update_penyakit(id_penyakit):
+    form = PenyakitForm()
+    penyakit = Penyakit.query.filter_by(id_penyakit=id_penyakit).first()
+    if form.validate_on_submit():
+        penyakit.nama_penyakit = form.nama_penyakit.data
+        penyakit.definisi_penyakit = form.definisi_penyakit.data
+        penyakit.penyebab_penyakit = form.penyebab_penyakit.data
+        penyakit.pengobatan_penyakit = form.pengobatan_penyakit.data
+        penyakit.pencegahan_penyakit = form.pencegahan_penyakit.data
+        penyakit.komplikasi_penyakit = form.komplikasi_penyakit.data
+        db.session.commit()
+        return redirect(url_for('view_penyakit'))
+    return render_template('penyakit/update.html', title='Update Penyakit', penyakit=penyakit, form=form)
+
+@app.route('/penyakit/delete/<int:id_penyakit>', methods=['GET', 'POST'])
+def delete_penyakit(id_penyakit):
+    penyakit = Penyakit.query.filter_by(id_penyakit=id_penyakit).first()
+    db.session.delete(penyakit)
+    db.session.commit()
+    return redirect(url_for('view_penyakit'))
+
+@app.route('/penyakit/detail/<int:id_penyakit>', methods=['GET'])
+def detail_penyakit(id_penyakit):
+    models = Penyakit.query.filter_by(id_penyakit=id_penyakit).first()
+    print(models)
+    return render_template('penyakit/detail.html', title='Detail Penyakit', models=models)
+

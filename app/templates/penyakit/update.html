@@ -1,0 +1,63 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+     <section class="section">
+        <div class="section-header">
+            <h1>Update Penyakit</h1>
+        </div>
+
+        <div class="card col-md-6">
+            <div class="card-body">
+                <form method="POST" action="" class="needs-validation" novalidate="">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label for="nama_penyakit">Nama Penyakit</label>
+                    {{ form.nama_penyakit(class_="form-control", value=penyakit.nama_penyakit) }}
+                    <div class="invalid-feedback">
+                        Please fill in nama gejala
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="definisi_penyakit">Definisi Penyakit</label>
+                    {{ form.definisi_penyakit(class_="form-control", value=penyakit.definisi_penyakit) }}
+                    <div class="invalid-feedback">
+                        Please fill in nama gejala
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="penyebab_penyakit">Penyebab Penyakit</label>
+                    {{ form.penyebab_penyakit(class_="form-control", value=penyakit.penyebab_penyakit) }}
+                    <div class="invalid-feedback">
+                        Please fill in nama gejala
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pengobatan_penyakit">Pengobatan Penyakit</label>
+                    {{ form.pengobatan_penyakit(class_="form-control", value=penyakit.pengobatan_penyakit) }}
+                    <div class="invalid-feedback">
+                        Please fill in nama gejala
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pencegahan_penyakit">Pencegahan Penyakit</label>
+                    {{ form.pencegahan_penyakit(class_="form-control", value=penyakit.pencegahan_penyakit) }}
+                    <div class="invalid-feedback">
+                        Please fill in nama gejala
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="komplikasi_penyakit">Komplikasi Penyakit</label>
+                    {{ form.komplikasi_penyakit(class_="form-control", value=penyakit.komplikasi_penyakit) }}
+                    <div class="invalid-feedback">
+                        Please fill in nama gejala
+                    </div>
+                </div>
+ 
+                <div class="form-group">
+                    {{ form.submit(class_="btn btn-primary btn-lg btn-block") }}
+                </div>
+            </form>
+            </div>
+        </div>
+     </section>
+{% endblock %}
