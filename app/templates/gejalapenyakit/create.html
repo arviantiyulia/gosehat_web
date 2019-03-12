@@ -1,0 +1,43 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+     <section class="section">
+        <div class="section-header">
+            <h1>Create Rule</h1>
+        </div>
+
+        <div class="card col-md-6">
+            <div class="card-body">
+                <form method="POST" action="" class="needs-validation" novalidate="">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label for="id_penyakit">Penyakit</label>
+                    <select class="form-control" id="id_penyakit" name="id_penyakit">
+                        {% for penyakit in penyakit_models %}
+                            <option value="{{ penyakit.id_penyakit }}">{{ penyakit.nama_penyakit }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_gejala">Gejala</label>
+                    <select class="form-control" id="id_gejala" name="id_gejala">
+                        {% for gejala in gejala_models %}
+                            <option value="{{ gejala.id_gejala }}">{{ gejala.nama_gejala }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bobot">Bobot</label>
+                    {{ form.bobot(class_="form-control") }}
+                    <div class="invalid-feedback">
+                        Please fill in bobot
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class_="btn btn-primary btn-lg btn-block") }}
+                </div>
+            </form>
+            </div>
+        </div>
+     </section>
+{% endblock %}

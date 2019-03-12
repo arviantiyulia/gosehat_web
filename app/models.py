@@ -29,7 +29,7 @@ class User(UserMixin, db.Model):
 class Gejala(db.Model):
     id_gejala = db.Column(db.Integer, primary_key=True)
     nama_gejala = db.Column(db.String(255))
-    # gejalapenyakit = db.relationship('GejalaPenyakit', backref='author', lazy='dynamic')
+    gejalapenyakit = db.relationship('GejalaPenyakit', backref='gejala', lazy='dynamic')
 
     def __repr__(self):
         return '<Gejala {}>'.format(self.id_gejala)
@@ -43,16 +43,16 @@ class Penyakit(db.Model):
     pengobatan_penyakit = db.Column(db.String(255))
     pencegahan_penyakit = db.Column(db.String(255))
     komplikasi_penyakit = db.Column(db.String(255))
-    rule = db.relationship('Rule', backref='author', lazy='dynamic')
+    gejalapenyakit = db.relationship('GejalaPenyakit', backref='penyakit', lazy='dynamic')
 
     def __repr__(self):
         return '<Penyakit {}>'.format(self.id_penyakit)
 
 
-class Rule(db.Model):
+class GejalaPenyakit(db.Model):
     id_gejala_penyakit = db.Column(db.Integer, primary_key=True)
     bobot = db.Column(db.Float)
-    # id_gejala = db.Column(db.Integer, db.ForeignKey('gejala.id_gejala'))
+    id_gejala = db.Column(db.Integer, db.ForeignKey('gejala.id_gejala'))
     id_penyakit = db.Column(db.Integer, db.ForeignKey('penyakit.id_penyakit'))
 
     def __repr__(self):

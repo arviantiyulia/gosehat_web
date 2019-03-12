@@ -1,0 +1,50 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+<section class="section">
+    <div class="section-header">
+        <h1>Rule</h1>
+    </div>
+    <a href="{{ url_for('create_gejalapenyakit') }}" class="btn btn-primary" style="margin-bottom: 20px;">Tambah Rule</a>
+
+    <div class="row">
+        <!-- <div class="card">
+            <div class="card-body p-0"> -->
+                <div class="table-responsive table-invoice">
+                    <table id="table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID Gejala Penyakit</th>
+                                <th>Nama Gejala</th>
+                                <th>Nama Penyakit</th>
+                                <th>Bobot</th>
+                                <th>Action</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for penyakit in penyakit %}
+                            <tr>
+                                <td>{{penyakit.id_gejala_penyakit}}</td>
+                                <td class="font-weight-600">{{penyakit.nama_penyakit}}</td>
+                                <td class="font-weight-600">{{penyakit.nama_gejala}}</td>
+                                <td class="font-weight-600">{{penyakit.bobot}}</td>
+                                <td>
+                                    <a href="{{ url_for('update_gejalapenyakit', id_gejala_penyakit=penyakit.id_gejala_penyakit) }}"
+                                        class="btn btn-success">Update</a>
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('delete_gejalapenyakit', id_gejala_penyakit=penyakit.id_gejala_penyakit) }}"
+                                        class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            <!-- </div>
+        </div> -->
+    </div>
+</section>
+
+{% endblock %}

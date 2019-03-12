@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FloatField, IntegerField
 from wtforms.validators import ValidationError, Required, Email, EqualTo
 from app.models import User, Gejala, Penyakit
 
@@ -42,6 +42,9 @@ class PenyakitForm(FlaskForm):
     komplikasi_penyakit = StringField('Komplikasi Penyakit')
     submit = SubmitField('Simpan')
 
-class RuleForm(FlaskForm):
+
+class GejalaPenyakitForm(FlaskForm):
     bobot = FloatField('Bobot', validators=[Required()])
-    id_penyakit = QuerySelectField(query_factory=lambda: Penyakit.query.all())
+    id_penyakit = IntegerField('Id Penyakit', validators=[Required()])
+    id_gejala = IntegerField('Id Gejala', validators=[Required()])
+    submit = SubmitField('Simpan')

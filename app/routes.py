@@ -3,8 +3,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 from app import app, db
 from app.forms import LoginForm
-from app.forms import RegistrationForm, GejalaForm, PenyakitForm
-from app.models import User, Gejala, Penyakit
+from app.forms import RegistrationForm, GejalaForm, PenyakitForm, GejalaPenyakitForm
+from app.models import User, Gejala, Penyakit, GejalaPenyakit
 
 
 @app.route('/')
@@ -57,7 +57,6 @@ def register():
 @app.route('/gejala')
 def view_gejala():
     models = Gejala.query.all()
-    print(models)
     return render_template('gejala/view.html', title='View Gejala', models=models)
 
 
@@ -95,7 +94,6 @@ def delete_gejala(id_gejala):
 @app.route('/penyakit')
 def view_penyakit():
     models = Penyakit.query.all()
-    print(models)
     return render_template('penyakit/view.html', title='View Penyakit', models=models)
 
 @app.route('/penyakit/create', methods=['GET', 'POST'])
@@ -138,3 +136,45 @@ def detail_penyakit(id_penyakit):
     print(models)
     return render_template('penyakit/detail.html', title='Detail Penyakit', models=models)
 
+
+@app.route('/gejalapenyakit')
+def view_gejalapenyakit():
+    penyakit = db.session.query(Penyakit.id_penyakit, Penyakit.nama_penyakit, GejalaPenyakit.id_gejala, GejalaPenyakit.id_gejala_penyakit, GejalaPenyakit.bobot, Gejala.nama_gejala).join(GejalaPenyakit, Penyakit.id_penyakit == GejalaPenyakit.id_penyakit).join(Gejala, GejalaPenyakit.id_gejala == Gejala.id_gejala).all()
+    return render_template('gejalapenyakit/view.html', title='View Penyakit', penyakit=penyakit)
+
+
+@app.route('/gejalapenyakit/create', methods=['GET', 'POST'])
+def create_gejalapenyakit():
+    form = GejalaPenyakitForm()
+    gejala_models = Gejala.query.all()
+    penyakit_models = Penyakit.query.all()
+    if form.validate_on_submit():
+        penyakit = GejalaPenyakit(id_penyakit=form.id_penyakit.data, id_gejala=form.id_gejala.data, bobot=form.bobot.data)
+        db.session.add(penyakit)
+        db.session.commit()
+        flash('Data berhasil dimasukkan')
+        return redirect(url_for('view_gejalapenyakit'))
+    return render_template('gejalapenyakit/create.html', title='Create Rule', form=form, gejala_models=gejala_models, penyakit_models=penyakit_models)
+
+
+@app.route('/gejalapenyakit/update/<int:id_gejala_penyakit>', methods=['GET', 'POST'])
+def update_gejalapenyakit(id_gejala_penyakit):
+    form = GejalaPenyakitForm()
+    gejalapenyakit = GejalaPenyakit.query.filter_by(id_gejala_penyakit=id_gejala_penyakit).first()
+    gejala_models = Gejala.query.all()
+    penyakit_models = Penyakit.query.all()
+    if form.validate_on_submit():
+        gejalapenyakit.bobot = form.bobot.data
+        gejalapenyakit.id_penyakit = form.id_penyakit.data
+        gejalapenyakit.id_gejala = form.id_gejala.data
+        db.session.commit()
+        return redirect(url_for('view_gejalapenyakit'))
+    return render_template('gejalapenyakit/update.html', title='Update Penyakit', gejalapenyakit=gejalapenyakit, form=form, gejala_models=gejala_models, penyakit_models=penyakit_models)
+
+
+@app.route('/gejalapenyakit/delete/<int:id_gejala_penyakit>', methods=['GET', 'POST'])
+def delete_gejalapenyakit(id_gejala_penyakit):
+    gejalapenyakit = GejalaPenyakit.query.filter_by(id_gejala_penyakit=id_gejala_penyakit).first()
+    db.session.delete(gejalapenyakit)
+    db.session.commit()
+    return redirect(url_for('view_gejalapenyakit'))
