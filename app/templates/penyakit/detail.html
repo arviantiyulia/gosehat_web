@@ -3,18 +3,33 @@
 {% block content %}
     <section class="section">
         <div class="section-header">
-            <h1>Detail Penyakit</h1>
+            <h1>{{models.nama_penyakit}}</h1>
         </div>
-        <div class="row" style="margin-left: 10px;">
+        <div class="row" style="margin-left: 5px; margin-right:5px;">
             <div class="card">
                 <div class="card-body p-0">
-                    <p>{{models.id_penyakit}}</p>
-                    <p>{{models.nama_penyakit}}</p>
-                    <p>{{models.definisi_penyakit}}</p>
-                    <p>{{models.penyebab_penyakit}}</p>
-                    <p>{{models.pengobatan_penyakit}}</p>
-                    <p>{{models.pencegahan_penyakit}}</p>
-                    <p>{{models.komplikasi_penyakit}}</p>
+                    <table  class="table table-striped">
+                        <tr>
+                            <th>Definisi Penyakit</th>
+                            <td>{{models.definisi_penyakit}}</td>
+                        </tr>
+                        <tr>
+                            <th>Penyebab Penyakit</th>
+                            <td>{{models.penyebab_penyakit}}</td>
+                        </tr>
+                        <tr>
+                            <th>Pengobatan Penyakit</th>
+                            <td>{{models.pengobatan_penyakit}}</td>
+                        </tr>
+                        <tr>
+                            <th>Pencegahan Penyakit</th>
+                            <td>{{models.pencegahan_penyakit}}</td>
+                        </tr>
+                        <tr>
+                            <th>Komplikasi Penyakit</th>
+                            <td>{{models.komplikasi_penyakit}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
