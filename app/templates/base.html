@@ -17,6 +17,7 @@
         <!-- Template CSS -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+
     {% endblock %}
 </head>
 <body>
@@ -60,7 +61,28 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
+
+            var url = window.location.href;
+            console.log("url = " + url);
+            console.log(url)
+
+            var result = url.split('/');
+            console.log(result)
+            if ( result[3] == 'index'){
+                $( "#menu_dashboard" ).addClass("active");
+            }
+            else if ( result[3] == 'gejala'){
+                $( "#menu_gejala" ).addClass("active");
+            }
+            else if ( result[3] == 'penyakit'){
+                $( "#menu_penyakit" ).addClass("active");
+            }
+            else if ( result[3] == 'gejalapenyakit'){
+                $( "#menu_rule" ).addClass("active");
+            }
+
         } );
+
     </script>
     
 {% endblock %}

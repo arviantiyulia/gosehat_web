@@ -5,44 +5,46 @@
     <div class="section-header">
         <h1>Rule</h1>
     </div>
-    <a href="{{ url_for('create_gejalapenyakit') }}" class="btn btn-primary" style="margin-bottom: 20px;">Tambah Rule</a>
+    <a href="{{ url_for('create_gejalapenyakit') }}" class="btn btn-primary" style="margin-bottom: 20px;"><i class="fas fa-plus"></i> Tambah Rule</a>
 
     <div class="row">
-        <!-- <div class="card">
-            <div class="card-body p-0"> -->
-                <div class="table-responsive table-invoice">
-                    <table id="table" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID Gejala Penyakit</th>
-                                <th>Nama Gejala</th>
-                                <th>Nama Penyakit</th>
-                                <th>Bobot</th>
-                                <th colspan="2">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for penyakit in penyakit %}
-                            <tr>
-                                <td>{{penyakit.id_gejala_penyakit}}</td>
-                                <td class="font-weight-600">{{penyakit.nama_penyakit}}</td>
-                                <td class="font-weight-600">{{penyakit.nama_gejala}}</td>
-                                <td class="font-weight-600">{{penyakit.bobot}}</td>
-                                <td>
-                                    <a href="{{ url_for('update_gejalapenyakit', id_gejala_penyakit=penyakit.id_gejala_penyakit) }}"
-                                        class="btn btn-success">Update</a>
-                                </td>
-                                <td>
-                                    <a href="{{ url_for('delete_gejalapenyakit', id_gejala_penyakit=penyakit.id_gejala_penyakit) }}"
-                                        class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body p-22">
+                    <div class="table-responsive table-invoice">
+                        <table id="table" class="table table-striped table-bordered" style="width:100%;">
+                            <thead>
+                                <tr class="table-primary text-center" style=" padding:2px;">
+                                    <th class="align-middle">ID Gejala Penyakit</th>
+                                    <th class="align-middle">Nama Gejala</th>
+                                    <th class="align-middle">Nama Penyakit</th>
+                                    <th class="align-middle">Bobot</th>
+                                    <th class="align-middle">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for penyakit in penyakit %}
+                                <tr>
+                                    <td>{{penyakit.id_gejala_penyakit}}</td>
+                                    <td>{{penyakit.nama_penyakit}}</td>
+                                    <td>{{penyakit.nama_gejala}}</td>
+                                    <td>{{penyakit.bobot}}</td>
+                                    <td>
+                                        <div style="width: 150px; display: flex; justify-content: space-between">
+                                            <a href="{{ url_for('update_gejalapenyakit', id_gejala_penyakit=penyakit.id_gejala_penyakit) }}"
+                                            class="btn btn-success">Update</a>
+                                            <a href="{{ url_for('delete_gejalapenyakit', id_gejala_penyakit=penyakit.id_gejala_penyakit) }}"
+                                            class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            <!-- </div>
-        </div> -->
+            </div>
+        </div>
     </div>
 </section>
 
