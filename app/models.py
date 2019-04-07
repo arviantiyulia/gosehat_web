@@ -57,3 +57,17 @@ class GejalaPenyakit(db.Model):
 
     def __repr__(self):
         return '<GejalaPenyakit {}>'.format(self.id_gejala_penyakit)
+
+class History(db.Model):
+    id_history = db.Column(db.Integer, primary_key=True)
+    input_user = db.Column(db.String(255))
+    output_sistem = db.Column(db.String(255))
+    user_id = db.Column(db.String(255))
+    name_user = db.Column(db.String(255))
+    time = db.Column(db.DateTime(6))
+    # id_penyakit = db.Column(db.Integer(32))
+    id_penyakit = db.Column(db.Integer, db.ForeignKey('penyakit.id_penyakit'))
+
+    def __repr__(self):
+        return '<History {}>'.format(self.id_history)
+

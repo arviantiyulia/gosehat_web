@@ -11,8 +11,10 @@
         <!-- CSS Libraries -->
         <link rel="stylesheet" href="{{ url_for('static', filename='modules/jqvmap/dist/jqvmap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='modules/summernote/summernote-bs4.css') }} ">
-        <link rel="stylesheet" href="{{ url_for('static', filename='modules/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='modules/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
 
         <!-- Template CSS -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -21,14 +23,15 @@
     {% endblock %}
 </head>
 <body>
-    <div id="content">{% block header %}{% endblock %}</div>
-    <footer class="main-footer">
-        <div class="footer-left">
-            {% block footer %}
-                Copyright &copy; 2019 <div class="bullet"></div> Design By Arvianti Yulia Ma'ulfa
-            {% endblock %}
-        </div>
-    </footer>
+<div id="content">{% block header %}{% endblock %}</div>
+<footer class="main-footer">
+    <div class="footer-left">
+        {% block footer %}
+            Copyright &copy; 2019
+            <div class="bullet"></div> Design By Arvianti Yulia Ma'ulfa
+        {% endblock %}
+    </div>
+</footer>
 </body>
 
 {% block js %}
@@ -58,8 +61,10 @@
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
+    <script src="{{ url_for('static', filename='modules/plotly-latest.min.js') }}"></script>
+
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#table').DataTable();
 
             var url = window.location.href;
@@ -68,22 +73,128 @@
 
             var result = url.split('/');
             console.log(result)
-            if ( result[3] == 'index'){
-                $( "#menu_dashboard" ).addClass("active");
+            if (result[3] == 'index') {
+                $("#menu_dashboard").addClass("active");
+            } else if (result[3] == 'gejala') {
+                $("#menu_gejala").addClass("active");
+            } else if (result[3] == 'penyakit') {
+                $("#menu_penyakit").addClass("active");
+            } else if (result[3] == 'gejalapenyakit') {
+                $("#menu_rule").addClass("active");
+            } else if (result[3] == 'statistika') {
+                $("#statistika_pengguna").addClass("active"),
+                $("#statistika").addClass("active");
+                $.ajax({
+                    url: "/statistik_data",
+                    method: 'POST',
+                    success: function (response) {
+
+                        // Plotly
+                        var data = [
+                            {
+                                x: response.x,
+                                y: response.y,
+                                type: 'scatter'
+                            }
+                        ];
+                        Plotly.newPlot('plot', data);
+                    }
+                })
             }
-            else if ( result[3] == 'gejala'){
-                $( "#menu_gejala" ).addClass("active");
-            }
-            else if ( result[3] == 'penyakit'){
-                $( "#menu_penyakit" ).addClass("active");
-            }
-            else if ( result[3] == 'gejalapenyakit'){
-                $( "#menu_rule" ).addClass("active");
+            else if(result[3] == 'statistika_penyakit'){
+                $("#statistika_penyakit").addClass("active"),
+                $("#statistika").addClass("active");;
+                $.ajax({
+                    url: "/statistika_data_penyakit",
+                    method: 'POST',
+                    success: function (response) {
+
+                        // Plotly
+                        var data = [
+                            {
+                                x: response.x,
+                                y: response.y,
+                                type: 'scatter'
+                            }
+                        ];
+                        Plotly.newPlot('plot_penyakit', data);
+                    }
+                })
+
             }
 
-        } );
+            $("#tahun").change(function(){
+                $.ajax({
+                    url: "/statistik_data",
+                    method: 'POST',
+                    data: {
+                        tahun: this.value
+                    },
+                    success: function (response) {
 
+                        // Plotly
+                        var data = [
+                            {
+                                x: response.x,
+                                y: response.y,
+                                type: 'scatter'
+                            }
+                        ];
+                        Plotly.newPlot('plot', data);
+                    }
+                })
+            })
+
+            $("#tahun_penyakit").change(function(){
+                $.ajax({
+                    url: "/statistika_data_penyakit",
+                    method: 'POST',
+                    data: {
+                        tahun_penyakit: this.value
+                    },
+                    success: function (response) {
+
+                        // Plotly
+                        var data = [
+                            {
+                                x: response.x,
+                                y: response.y,
+                                type: 'scatter'
+                            }
+                        ];
+                        Plotly.newPlot('plot_penyakit', data);
+                    }
+                })
+            })
+
+            $("#bulan_penyakit").change(function(){
+                $.ajax({
+                    url: "/statistika_data_penyakit",
+                    method: 'POST',
+                    data: {
+                        bulan_penyakit: $('#bulan_penyakit').val(),
+                        tahun_penyakit: $('#tahun_penyakit').val(),
+                    },
+                    success: function (response) {
+
+                        // Plotly
+                        var data = [
+                            {
+                                x: response.x,
+                                y: response.y,
+                                type: 'scatter'
+                            }
+                        ];
+
+                        Plotly.newPlot('plot_penyakit', data);
+                    }
+                })
+            })
+
+
+
+        });
     </script>
-    
+
 {% endblock %}
 </html>

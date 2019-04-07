@@ -1,5 +1,6 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, jsonify, request
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import text
 
 from app import app, db
 from app.forms import LoginForm
@@ -96,11 +97,16 @@ def view_penyakit():
     models = Penyakit.query.all()
     return render_template('penyakit/view.html', title='View Penyakit', models=models)
 
+
 @app.route('/penyakit/create', methods=['GET', 'POST'])
 def create_penyakit():
     form = PenyakitForm()
     if form.validate_on_submit():
-        penyakit = Penyakit(nama_penyakit=form.nama_penyakit.data, definisi_penyakit=form.definisi_penyakit.data, penyebab_penyakit=form.penyebab_penyakit.data, pengobatan_penyakit=form.pengobatan_penyakit.data, pencegahan_penyakit=form.pencegahan_penyakit.data, komplikasi_penyakit=form.komplikasi_penyakit.data)
+        penyakit = Penyakit(nama_penyakit=form.nama_penyakit.data, definisi_penyakit=form.definisi_penyakit.data,
+                            penyebab_penyakit=form.penyebab_penyakit.data,
+                            pengobatan_penyakit=form.pengobatan_penyakit.data,
+                            pencegahan_penyakit=form.pencegahan_penyakit.data,
+                            komplikasi_penyakit=form.komplikasi_penyakit.data)
         db.session.add(penyakit)
         db.session.commit()
         flash('Data berhasil dimasukkan')
@@ -123,12 +129,14 @@ def update_penyakit(id_penyakit):
         return redirect(url_for('view_penyakit'))
     return render_template('penyakit/update.html', title='Update Penyakit', penyakit=penyakit, form=form)
 
+
 @app.route('/penyakit/delete/<int:id_penyakit>', methods=['GET', 'POST'])
 def delete_penyakit(id_penyakit):
     penyakit = Penyakit.query.filter_by(id_penyakit=id_penyakit).first()
     db.session.delete(penyakit)
     db.session.commit()
     return redirect(url_for('view_penyakit'))
+
 
 @app.route('/penyakit/detail/<int:id_penyakit>', methods=['GET'])
 def detail_penyakit(id_penyakit):
@@ -139,7 +147,10 @@ def detail_penyakit(id_penyakit):
 
 @app.route('/gejalapenyakit')
 def view_gejalapenyakit():
-    penyakit = db.session.query(Penyakit.id_penyakit, Penyakit.nama_penyakit, GejalaPenyakit.id_gejala, GejalaPenyakit.id_gejala_penyakit, GejalaPenyakit.bobot, Gejala.nama_gejala).join(GejalaPenyakit, Penyakit.id_penyakit == GejalaPenyakit.id_penyakit).join(Gejala, GejalaPenyakit.id_gejala == Gejala.id_gejala).all()
+    penyakit = db.session.query(Penyakit.id_penyakit, Penyakit.nama_penyakit, GejalaPenyakit.id_gejala,
+                                GejalaPenyakit.id_gejala_penyakit, GejalaPenyakit.bobot, Gejala.nama_gejala).join(
+        GejalaPenyakit, Penyakit.id_penyakit == GejalaPenyakit.id_penyakit).join(Gejala,
+                                                                                 GejalaPenyakit.id_gejala == Gejala.id_gejala).all()
     return render_template('gejalapenyakit/view.html', title='View Penyakit', penyakit=penyakit)
 
 
@@ -149,12 +160,14 @@ def create_gejalapenyakit():
     gejala_models = Gejala.query.all()
     penyakit_models = Penyakit.query.all()
     if form.validate_on_submit():
-        penyakit = GejalaPenyakit(id_penyakit=form.id_penyakit.data, id_gejala=form.id_gejala.data, bobot=form.bobot.data)
+        penyakit = GejalaPenyakit(id_penyakit=form.id_penyakit.data, id_gejala=form.id_gejala.data,
+                                  bobot=form.bobot.data)
         db.session.add(penyakit)
         db.session.commit()
         flash('Data berhasil dimasukkan')
         return redirect(url_for('view_gejalapenyakit'))
-    return render_template('gejalapenyakit/create.html', title='Create Rule', form=form, gejala_models=gejala_models, penyakit_models=penyakit_models)
+    return render_template('gejalapenyakit/create.html', title='Create Rule', form=form, gejala_models=gejala_models,
+                           penyakit_models=penyakit_models)
 
 
 @app.route('/gejalapenyakit/update/<int:id_gejala_penyakit>', methods=['GET', 'POST'])
@@ -169,7 +182,8 @@ def update_gejalapenyakit(id_gejala_penyakit):
         gejalapenyakit.id_gejala = form.id_gejala.data
         db.session.commit()
         return redirect(url_for('view_gejalapenyakit'))
-    return render_template('gejalapenyakit/update.html', title='Update Penyakit', gejalapenyakit=gejalapenyakit, form=form, gejala_models=gejala_models, penyakit_models=penyakit_models)
+    return render_template('gejalapenyakit/update.html', title='Update Penyakit', gejalapenyakit=gejalapenyakit,
+                           form=form, gejala_models=gejala_models, penyakit_models=penyakit_models)
 
 
 @app.route('/gejalapenyakit/delete/<int:id_gejala_penyakit>', methods=['GET', 'POST'])
@@ -178,3 +192,99 @@ def delete_gejalapenyakit(id_gejala_penyakit):
     db.session.delete(gejalapenyakit)
     db.session.commit()
     return redirect(url_for('view_gejalapenyakit'))
+
+
+@app.route('/statistika')
+def statistika():
+    return render_template('statistika/statistik.html', title='Statistika')
+
+
+@app.route('/statistik_data', methods=['POST'])
+def statistik_data():
+
+    get_tahun = request.form.get("tahun")
+
+    if get_tahun == None:
+        history = db.engine.execute(text(
+            "SELECT extract(month from time) as mon, extract(year from time) as yyyy, count(*) FROM history WHERE extract(year from time) = :x GROUP BY 1,2 ORDER BY mon"),
+                                    x=2019)
+    else:
+        history = db.engine.execute(text(
+            "SELECT extract(month from time) as mon, extract(year from time) as yyyy, count(*) FROM history WHERE extract(year from time) = :x GROUP BY 1,2 ORDER BY mon"),
+            x=get_tahun)
+
+    x = []
+    y = []
+
+    for row in history:
+        print("history = ", row)
+        if row[0] == 1:
+            x.append("Januari")
+        elif row[0] == 2:
+            x.append("Februari")
+        elif row[0] == 3:
+            x.append("Maret")
+        elif row[0] == 4:
+            x.append("April")
+        elif row[0] == 5:
+            x.append("Mei")
+        elif row[0] == 6:
+            x.append("Juni")
+        elif row[0] == 7:
+            x.append("Juli")
+        elif row[0] == 8:
+            x.append("Agustus")
+        elif row[0] == 9:
+            x.append("September")
+        elif row[0] == 10:
+            x.append("Oktober")
+        elif row[0] == 11:
+            x.append("November")
+        elif row[0] == 12:
+            x.append("Desember")
+
+        y.append(row[2])
+
+    return jsonify(x=x, y=y)
+
+
+@app.route('/statistika_penyakit')
+def statistika_penyakit():
+    return render_template('statistika/statistika_penyakit.html', title='Statistika Penyakit')
+
+
+@app.route('/statistika_data_penyakit', methods=['POST'])
+def statistika_data_penyakit():
+
+    x = []
+    y = []
+    get_tahun_penyakit = request.form.get("tahun_penyakit")
+    print(get_tahun_penyakit)
+    get_bulan_penyakit = request.form.get("bulan_penyakit")
+    print(get_bulan_penyakit)
+
+    if get_tahun_penyakit == None and get_bulan_penyakit == None:
+        history = db.engine.execute(text(
+            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"), tahun=2019, bulan=4)
+
+    elif get_tahun_penyakit == None and get_bulan_penyakit !=None:
+        history = db.engine.execute(text(
+            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
+            tahun=2019, bulan=get_bulan_penyakit)
+
+    elif get_tahun_penyakit != None and get_bulan_penyakit == None:
+        history = db.engine.execute(text(
+            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
+            tahun=get_tahun_penyakit, bulan=4)
+
+    else:
+        history = db.engine.execute(text(
+            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
+            tahun=get_tahun_penyakit, bulan=get_bulan_penyakit)
+
+    for row in history:
+        x.append(row[1])
+        y.append(row[2])
+        print(row)
+
+    return jsonify(x=x, y=y)

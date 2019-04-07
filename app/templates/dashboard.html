@@ -35,6 +35,15 @@
                   <li class="" id="menu_gejala"><a class="nav-link" href="{{ url_for('view_gejala') }}"><i class="fas fa-th-large"></i> <span>Gejala</span></a></li>
                   <li class="" id="menu_penyakit"><a class="nav-link" href="{{ url_for('view_penyakit') }}"><i class="fas fa-check-square"></i> <span>Penyakit</span></a></li>
                   <li class="" id="menu_rule"><a class="nav-link" href="{{ url_for('view_gejalapenyakit') }}"><i class="far fa-file-alt"></i> <span>Rule</span></a></li>
+{#                  <li class="" id="statistika"><a class="nav-link" href="{{ url_for('statistika') }}"><i class="far fa-chart-bar"></i> <span>Statistika</span></a></li>#}
+
+                  <li class="nav-item dropdown" id="statistika">
+                      <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-bar"></i><span>Statistik</span></a>
+                      <ul class="dropdown-menu">
+                          <li id="statistika_pengguna"><a class="nav-link" href="{{ url_for('statistika') }}"><span>Statistika Pengguna</span></a></li>
+                          <li id="statistika_penyakit"><a class="nav-link" href="{{ url_for('statistika_penyakit') }}"><span>Statistika Penyakit</span></a></li>
+                      </ul>
+                  </li>
               </ul>
             </aside>
         </div>

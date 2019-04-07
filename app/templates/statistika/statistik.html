@@ -1,0 +1,26 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+    <section class="section">
+        <div class="section-header">
+            <h1>Statistika</h1>
+        </div>
+
+        <div class="form-inline form-group">
+            <label>Tahun : </label>
+            <select class="form-control" id="tahun">
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <div class="card-body p-20">
+                <div id="plot"></div>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}
