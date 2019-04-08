@@ -89,6 +89,10 @@
                     method: 'POST',
                     success: function (response) {
                         if((response.x).length != 0 || (response.y).length != 0) {
+
+                            $('#plot').show()
+                            $('#text_plot').text("")
+
                             // Plotly
                             var data = [
                                 {
@@ -101,6 +105,7 @@
                             Plotly.newPlot('plot', data);
                         }
                         else {
+                            $('#plot').hide()
                             $('#text_plot').text("No data")
                         }                    }
                 })
@@ -117,6 +122,7 @@
 
                             // Plotly
                             $('#plot_penyakit').show()
+                            $('#text_plot').text("")
 
                             var data = [
                                 {
@@ -147,7 +153,8 @@
                     success: function (response) {
 
                         if((response.x).length != 0 || (response.y).length != 0) {
-                            $('#plot_penyakit').show()
+                            $('#plot').show()
+                            $('#text_plot').text("")
 
                             // Plotly
                             var data = [
@@ -161,7 +168,7 @@
                             Plotly.newPlot('plot', data);
                         }
                         else {
-                            $('#plot_penyakit').hide()
+                            $('#plot').hide()
                             $('#text_plot').text("No data")
                         }
                     }
@@ -178,6 +185,7 @@
                     success: function (response) {
                         if((response.x).length != 0 || (response.y).length != 0) {
                             $('#plot_penyakit').show()
+                            $('#text_plot').text("")
 
                             // Plotly
                             var data = [
@@ -210,6 +218,7 @@
 
                         if((response.x).length != 0 || (response.y).length != 0){
                             $('#plot_penyakit').show()
+                            $('#text_plot').text("")
                             // Plotly
                             var data = [
                                 {
