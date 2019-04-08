@@ -88,17 +88,21 @@
                     url: "/statistik_data",
                     method: 'POST',
                     success: function (response) {
+                        if((response.x).length != 0 || (response.y).length != 0) {
+                            // Plotly
+                            var data = [
+                                {
+                                    x: response.x,
+                                    y: response.y,
+                                    type: 'scatter'
+                                }
+                            ];
 
-                        // Plotly
-                        var data = [
-                            {
-                                x: response.x,
-                                y: response.y,
-                                type: 'scatter'
-                            }
-                        ];
-                        Plotly.newPlot('plot', data);
-                    }
+                            Plotly.newPlot('plot', data);
+                        }
+                        else {
+                            $('#text_plot').text("No data")
+                        }                    }
                 })
             }
             else if(result[3] == 'statistika_penyakit'){
@@ -118,11 +122,12 @@
                                     type: 'scatter'
                                 }
                             ];
+
+                            Plotly.newPlot('plot_penyakit', data);
                         }
                         else {
                             $('#text_plot').text("No data")
                         }
-                        Plotly.newPlot('plot_penyakit', data);
                     }
                 })
 
@@ -146,11 +151,12 @@
                                     type: 'scatter'
                                 }
                             ];
+
+                            Plotly.newPlot('plot', data);
                         }
                         else {
                             $('#text_plot').text("No data")
                         }
-                        Plotly.newPlot('plot', data);
                     }
                 })
             })
@@ -172,11 +178,12 @@
                                     type: 'scatter'
                                 }
                             ];
+
+                            Plotly.newPlot('plot_penyakit', data);
                         }
                         else {
                             $('#text_plot').text("No data")
                         }
-                        Plotly.newPlot('plot_penyakit', data);
                     }
                 })
             })
