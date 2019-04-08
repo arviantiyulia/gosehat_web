@@ -207,12 +207,11 @@
                                     type: 'scatter'
                                 }
                             ];
+                            Plotly.newPlot('plot_penyakit', data);
                         }
                         else {
                             $('#text_plot').text("No data")
                         }
-
-                        Plotly.newPlot('plot_penyakit', data);
                     }
                 })
             })
