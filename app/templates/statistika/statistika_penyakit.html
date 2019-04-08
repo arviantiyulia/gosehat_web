@@ -11,15 +11,16 @@
             <select class="form-control" id="tahun_penyakit">
                 <option value="2017">2017</option>
                 <option value="2018">2018</option>
-                <option value="2019">2019</option>
+                <option value="2019" selected>2019</option>
             </select>
 
             <label>Bulan : </label>
             <select class="form-control" id="bulan_penyakit">
+
                 <option value="1">Januari</option>
                 <option value="2">Februari</option>
                 <option value="3">Maret</option>
-                <option value="4">April</option>
+                <option value="4" selected>April</option>
                 <option value="5">Mei</option>
                 <option value="6">Juni</option>
                 <option value="7">Juli</option>
@@ -34,6 +35,8 @@
 
         <div class="card">
             <div class="card-body p-20">
+
+                <h2 id="text_plot"></h2>
                 <div id="plot_penyakit"></div>
             </div>
         </div>

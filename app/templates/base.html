@@ -109,14 +109,19 @@
                     method: 'POST',
                     success: function (response) {
 
-                        // Plotly
-                        var data = [
-                            {
-                                x: response.x,
-                                y: response.y,
-                                type: 'scatter'
-                            }
-                        ];
+                        if((response.x).length != 0 || (response.y).length != 0) {
+                            // Plotly
+                            var data = [
+                                {
+                                    x: response.x,
+                                    y: response.y,
+                                    type: 'scatter'
+                                }
+                            ];
+                        }
+                        else {
+                            $('#text_plot').text("No data")
+                        }
                         Plotly.newPlot('plot_penyakit', data);
                     }
                 })
@@ -132,14 +137,19 @@
                     },
                     success: function (response) {
 
-                        // Plotly
-                        var data = [
-                            {
-                                x: response.x,
-                                y: response.y,
-                                type: 'scatter'
-                            }
-                        ];
+                        if((response.x).length != 0 || (response.y).length != 0) {
+                            // Plotly
+                            var data = [
+                                {
+                                    x: response.x,
+                                    y: response.y,
+                                    type: 'scatter'
+                                }
+                            ];
+                        }
+                        else {
+                            $('#text_plot').text("No data")
+                        }
                         Plotly.newPlot('plot', data);
                     }
                 })
@@ -153,15 +163,19 @@
                         tahun_penyakit: this.value
                     },
                     success: function (response) {
-
-                        // Plotly
-                        var data = [
-                            {
-                                x: response.x,
-                                y: response.y,
-                                type: 'scatter'
-                            }
-                        ];
+                        if((response.x).length != 0 || (response.y).length != 0) {
+                            // Plotly
+                            var data = [
+                                {
+                                    x: response.x,
+                                    y: response.y,
+                                    type: 'scatter'
+                                }
+                            ];
+                        }
+                        else {
+                            $('#text_plot').text("No data")
+                        }
                         Plotly.newPlot('plot_penyakit', data);
                     }
                 })
@@ -177,14 +191,19 @@
                     },
                     success: function (response) {
 
-                        // Plotly
-                        var data = [
-                            {
-                                x: response.x,
-                                y: response.y,
-                                type: 'scatter'
-                            }
-                        ];
+                        if((response.x).length != 0 || (response.y).length != 0){
+                            // Plotly
+                            var data = [
+                                {
+                                    x: response.x,
+                                    y: response.y,
+                                    type: 'scatter'
+                                }
+                            ];
+                        }
+                        else {
+                            $('#text_plot').text("No data")
+                        }
 
                         Plotly.newPlot('plot_penyakit', data);
                     }
