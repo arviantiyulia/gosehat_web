@@ -112,7 +112,9 @@
                     url: "/statistika_data_penyakit",
                     method: 'POST',
                     success: function (response) {
-                        if((response.x).length != 0 || (response.y).length != 0) {
+                        console.log(response)
+                        if(response.x.length != 0 || response.y.length != 0) {
+
                             // Plotly
                             $('#plot_penyakit').show()
 
@@ -145,6 +147,8 @@
                     success: function (response) {
 
                         if((response.x).length != 0 || (response.y).length != 0) {
+                            $('#plot_penyakit').show()
+
                             // Plotly
                             var data = [
                                 {
@@ -157,6 +161,7 @@
                             Plotly.newPlot('plot', data);
                         }
                         else {
+                            $('#plot_penyakit').hide()
                             $('#text_plot').text("No data")
                         }
                     }
@@ -172,6 +177,8 @@
                     },
                     success: function (response) {
                         if((response.x).length != 0 || (response.y).length != 0) {
+                            $('#plot_penyakit').show()
+
                             // Plotly
                             var data = [
                                 {
@@ -184,6 +191,7 @@
                             Plotly.newPlot('plot_penyakit', data);
                         }
                         else {
+                            $('#plot_penyakit').hide()
                             $('#text_plot').text("No data")
                         }
                     }
@@ -201,6 +209,7 @@
                     success: function (response) {
 
                         if((response.x).length != 0 || (response.y).length != 0){
+                            $('#plot_penyakit').show()
                             // Plotly
                             var data = [
                                 {
@@ -212,6 +221,7 @@
                             Plotly.newPlot('plot_penyakit', data);
                         }
                         else {
+                            $('#plot_penyakit').hide()
                             $('#text_plot').text("No data")
                         }
                     }
