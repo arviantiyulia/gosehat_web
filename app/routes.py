@@ -265,21 +265,21 @@ def statistika_data_penyakit():
 
     if get_tahun_penyakit == None and get_bulan_penyakit == None:
         history = db.engine.execute(text(
-            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"), tahun=2019, bulan=4)
+            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit::varchar = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"), tahun=2019, bulan=4)
 
     elif get_tahun_penyakit == None and get_bulan_penyakit !=None:
         history = db.engine.execute(text(
-            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
+            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit::varchar = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
             tahun=2019, bulan=get_bulan_penyakit)
 
     elif get_tahun_penyakit != None and get_bulan_penyakit == None:
         history = db.engine.execute(text(
-            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
+            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit::varchar = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
             tahun=get_tahun_penyakit, bulan=4)
 
     else:
         history = db.engine.execute(text(
-            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
+            "SELECT h.id_penyakit, pen.nama_penyakit, count(*) FROM history as h JOIN penyakit as pen ON pen.id_penyakit::varchar = h.id_penyakit WHERE extract(year from time) = :tahun AND extract(month from time) = :bulan GROUP BY h.id_penyakit, pen.nama_penyakit"),
             tahun=get_tahun_penyakit, bulan=get_bulan_penyakit)
 
     for row in history:
