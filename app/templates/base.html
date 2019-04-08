@@ -112,9 +112,10 @@
                     url: "/statistika_data_penyakit",
                     method: 'POST',
                     success: function (response) {
-
                         if((response.x).length != 0 || (response.y).length != 0) {
                             // Plotly
+                            $('#plot_penyakit').show()
+
                             var data = [
                                 {
                                     x: response.x,
@@ -126,6 +127,7 @@
                             Plotly.newPlot('plot_penyakit', data);
                         }
                         else {
+                            $('#plot_penyakit').hide()
                             $('#text_plot').text("No data")
                         }
                     }
