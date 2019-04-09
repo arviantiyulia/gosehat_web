@@ -206,43 +206,18 @@ def statistik_data():
 
     if get_tahun == None:
         history = db.engine.execute(text(
-            "SELECT extract(month from time) as mon, extract(year from time) as yyyy, count(*) FROM history WHERE extract(year from time) = :x GROUP BY 1,2 ORDER BY mon"),
+            "SELECT extract(month from time) as mon, extract(year from time) as yyyy, count(DISTINCT time) FROM history WHERE extract(year from time) = :x GROUP BY 1,2 ORDER BY mon"),
                                     x=2019)
     else:
         history = db.engine.execute(text(
-            "SELECT extract(month from time) as mon, extract(year from time) as yyyy, count(*) FROM history WHERE extract(year from time) = :x GROUP BY 1,2 ORDER BY mon"),
+            "SELECT extract(month from time) as mon, extract(year from time) as yyyy, count(DISTINCT time) FROM history WHERE extract(year from time) = :x GROUP BY 1,2 ORDER BY mon"),
             x=get_tahun)
 
     x = []
     y = []
 
     for row in history:
-        print("history = ", row)
-        if row[0] == 1:
-            x.append("Januari")
-        elif row[0] == 2:
-            x.append("Februari")
-        elif row[0] == 3:
-            x.append("Maret")
-        elif row[0] == 4:
-            x.append("April")
-        elif row[0] == 5:
-            x.append("Mei")
-        elif row[0] == 6:
-            x.append("Juni")
-        elif row[0] == 7:
-            x.append("Juli")
-        elif row[0] == 8:
-            x.append("Agustus")
-        elif row[0] == 9:
-            x.append("September")
-        elif row[0] == 10:
-            x.append("Oktober")
-        elif row[0] == 11:
-            x.append("November")
-        elif row[0] == 12:
-            x.append("Desember")
-
+        x.append(row[0])
         y.append(row[2])
 
     return jsonify(x=x, y=y)

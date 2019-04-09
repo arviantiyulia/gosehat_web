@@ -93,11 +93,68 @@
                             $('#plot').show()
                             $('#text_plot').text("")
 
+                            var datax = [1,2,3,4,5,6,7,8,9,10,11,12];
+                            var datay = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+                            var x = response.x;
+                            var y = response.y;
+
+                            for(var i = 0; i < 12; i++){
+                                if(x.includes(datax[i])){
+                                    for(var idx = 0; idx < x.length; idx++){
+                                        if(datax[i] == x[idx]){
+                                            datay[i] = y[idx];
+                                        }
+                                    }
+                                }
+                            }
+
+                            for (var index = 0; index < 12; index++){
+                                if(datax[index]== 1){
+                                    datax[index] = "Januari"
+                                }
+                                else if(datax[index]== 2){
+                                    datax[index] = "Februari"
+                                }
+                                else if(datax[index]== 3){
+                                    datax[index] = "Maret"
+                                }
+                                else if(datax[index]== 4){
+                                    datax[index] = "April"
+                                }
+                                else if(datax[index]== 5){
+                                    datax[index] = "Mei"
+                                }
+                                else if(datax[index]== 6){
+                                    datax[index] = "Juni"
+                                }
+                                else if(datax[index]== 7){
+                                    datax[index] = "Juli"
+                                }
+                                else if(datax[index]== 8){
+                                    datax[index] = "Agustus"
+                                }
+                                else if(datax[index]== 9){
+                                    datax[index] = "September"
+                                }
+                                else if(datax[index]== 10){
+                                    datax[index] = "Oktober"
+                                }
+                                else if(datax[index]== 11){
+                                    datax[index] = "November"
+                                }
+                                else if(datax[index]== 12){
+                                    datax[index] = "Desember"
+                                }
+                                else {
+                                    datax[index] = "Januari"
+                                }
+                            }
                             // Plotly
                             var data = [
                                 {
-                                    x: response.x,
-                                    y: response.y,
+                                    x: datax,
+                                    y: datay,
                                     type: 'scatter'
                                 }
                             ];
@@ -156,11 +213,69 @@
                             $('#plot').show()
                             $('#text_plot').text("")
 
+                            var datax = [1,2,3,4,5,6,7,8,9,10,11,12];
+                            var datay = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+                            var x = response.x;
+                            var y = response.y;
+
+                            for(var i = 0; i < 12; i++){
+                                if(x.includes(datax[i])){
+                                    for(var idx = 0; idx < x.length; idx++){
+                                        if(datax[i] == x[idx]){
+                                            datay[i] = y[idx];
+                                        }
+                                    }
+                                }
+                            }
+
+                            for (var index = 0; index < 12; index++){
+                                if(datax[index]== 1){
+                                    datax[index] = "Januari"
+                                }
+                                else if(datax[index]== 2){
+                                    datax[index] = "Februari"
+                                }
+                                else if(datax[index]== 3){
+                                    datax[index] = "Maret"
+                                }
+                                else if(datax[index]== 4){
+                                    datax[index] = "April"
+                                }
+                                else if(datax[index]== 5){
+                                    datax[index] = "Mei"
+                                }
+                                else if(datax[index]== 6){
+                                    datax[index] = "Juni"
+                                }
+                                else if(datax[index]== 7){
+                                    datax[index] = "Juli"
+                                }
+                                else if(datax[index]== 8){
+                                    datax[index] = "Agustus"
+                                }
+                                else if(datax[index]== 9){
+                                    datax[index] = "September"
+                                }
+                                else if(datax[index]== 10){
+                                    datax[index] = "Oktober"
+                                }
+                                else if(datax[index]== 11){
+                                    datax[index] = "November"
+                                }
+                                else if(datax[index]== 12){
+                                    datax[index] = "Desember"
+                                }
+                                else {
+                                    datax[index] = "Januari"
+                                }
+                            }
+
                             // Plotly
                             var data = [
                                 {
-                                    x: response.x,
-                                    y: response.y,
+                                    x: datax,
+                                    y: datay,
                                     type: 'scatter'
                                 }
                             ];
